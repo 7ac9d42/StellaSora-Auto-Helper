@@ -16,13 +16,10 @@
             "type": "OCR"
         }
     },
-    "委托_前往委托": {
+    "委托_进入后流程": {
         "action": {
             "param": {},
-            "type": "Click"
-        },
-        "focus": {
-            "Node.Recognition.Starting": "正在点击委托"
+            "type": "DoNothing"
         },
         "next": [
             {
@@ -34,6 +31,47 @@
                 "name": "委托_跳过 "
             },
             "委托_再次派遣"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        }
+    },
+    "委托_识别委托状态": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "识别到委托未结束，结束当前任务",
+            "Node.Recognition.Starting": "正在识别委托状态"
+        },
+        "next": [
+            "通用_返回主页"
+        ],
+        "on_error": [
+            "委托_进入后流程"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "cannot_quick_claim.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 1000
+    },
+    "委托_前往委托": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Recognition.Starting": "正在点击委托"
+        },
+        "next": [
+            "委托_识别委托状态"
         ],
         "recognition": {
             "param": {
